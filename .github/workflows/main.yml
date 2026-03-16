@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest         #mượn máy ảo Ubuntu của Github để chạy
 
     steps:
-    - name: Bước 1- Xin chào
-      run: echo"Hello Hutech!"     #Lệnh in ra màn hình
+      - name: Bước 1- Xin chào
+        run: echo"Hello Hutech!"     #Lệnh in ra màn hình
 
-    - name: -Bước 1 - tải code
-      uses: actions/checkout@v6    #Robot tự động copy code vào máy ảo
+      - name: -Bước 1 - tải code
+        uses: actions/checkout@v6    #Robot tự động copy code vào máy ảo
 
-    - name: Bước 3 - Đọc file
-      run: cat README.md           #Mở nội dung file README.md để xem
+      - name: Bước 3 - Đọc file
+        run: cat README.md           #Mở nội dung file README.md để xem
