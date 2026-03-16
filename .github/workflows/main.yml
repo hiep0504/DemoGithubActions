@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Bước 1- Xin chào
-        run: echo"Hello Hutech!"     #Lệnh in ra màn hình
+        run: echo "Hello Hutech!"     #Lệnh in ra màn hình
 
       - name: -Bước 1 - tải code
         uses: actions/checkout@v6    #Robot tự động copy code vào máy ảo
