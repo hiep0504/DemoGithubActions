@@ -8,6 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 
 import java.util.List;
@@ -76,6 +81,28 @@ public class homeController {
     public String saveProfile(@ModelAttribute Profile profile) {
         profileRepository.save(profile);
         return "redirect:/";
+    }
+
+    // --- JSON API endpoints ---
+    @GetMapping("/api/profile")
+    public @ResponseBody ResponseEntity<Profile> apiGetProfile() {
+        List<Profile> list = profileRepository.findAll();
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(list.get(0));
+    }
+
+    @PostMapping("/api/profile")
+    public @ResponseBody ResponseEntity<Profile> apiSaveProfile(@RequestBody Profile profile) {
+        Profile saved = profileRepository.save(profile);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @DeleteMapping("/api/profile")
+    public @ResponseBody ResponseEntity<Void> apiDeleteProfile() {
+        profileRepository.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 
 }
