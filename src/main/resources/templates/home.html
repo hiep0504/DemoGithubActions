@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Cá Nhân</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">My Store</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Trang chủ</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-light">Đăng nhập</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Profile -->
+<div class="container mt-4">
+    <div class="p-5 bg-light rounded">
+        <h1>Trang Cá Nhân</h1>
+        <p>Thông tin người dùng lưu trong cơ sở dữ liệu</p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Hồ sơ</h4>
+            <p><strong>Tên:</strong> <span th:text="${profile.name}">Tên người dùng</span></p>
+            <p><strong>Email:</strong> <span th:text="${profile.email}">email@example.com</span></p>
+            <p><strong>Vị trí:</strong> <span th:text="${profile.position}">Backend Developer</span></p>
+            <p><strong>Ngôn ngữ:</strong> <span th:text="${profile.languages}">Java, Node.js</span></p>
+            <p><strong>DB:</strong> <span th:text="${profile.databaseName}">MySQL</span></p>
+            <p><strong>Project:</strong> <span th:text="${profile.project}">Mô tả project</span></p>
+            <p><strong>Tiểu sử:</strong> <span th:text="${profile.bio}">Tiểu sử người dùng</span></p>
+            <a class="btn btn-primary mt-3" th:href="@{/profile/edit}">Chỉnh sửa hồ sơ</a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    © 2026 My Store
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa Hồ sơ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">My Store</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="p-4 bg-light rounded">
+        <h2>Chỉnh sửa Hồ sơ</h2>
+        <form th:action="@{/profile/save}" th:object="${profile}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label class="form-label">Tên</label>
+                <input class="form-control" th:field="*{name}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control" th:field="*{email}" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Vị trí</label>
+                <input class="form-control" th:field="*{position}" placeholder="Backend Developer" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ngôn ngữ</label>
+                <input class="form-control" th:field="*{languages}" placeholder="Java, Node.js" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">DB</label>
+                <input class="form-control" th:field="*{databaseName}" placeholder="MySQL" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Project</label>
+                <textarea class="form-control" th:field="*{project}" rows="3" placeholder="Mô tả project"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tiểu sử</label>
+                <textarea class="form-control" th:field="*{bio}" rows="4"></textarea>
+            </div>
+
+            <button class="btn btn-success" type="submit">Lưu</button>
+            <a class="btn btn-secondary" th:href="@{/}">Huỷ</a>
+        </form>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    © 2026 My Store
+</footer>
+
+</body>
+</html>
