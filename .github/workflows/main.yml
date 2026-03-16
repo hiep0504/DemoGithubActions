@@ -11,7 +11,7 @@ jobs:
       - name: Bước 1- Xin chào
         run: echo "Hello Hutech!"     #Lệnh in ra màn hình
 
-      - name: -Bước 1 - tải code
+      - name: Bước 2 - tải code
         uses: actions/checkout@v6    #Robot tự động copy code vào máy ảo
 
       - name: Bước 3 - Đọc file
