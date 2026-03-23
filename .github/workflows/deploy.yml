@@ -23,3 +23,49 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/springboot-app:$VERSION
+      name: Build and Push Docker Image
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login Docker Hub
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Set version
+        run: echo "VERSION=v${{ github.run_number }}" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/springboot-app:$VERSION .
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/springboot-app:$VERSION.
+
+      - name: Triển khai lên DevOps Classroom
+        run: |
+          REPO="phamdinhhiep/springboot-app"
+          RESPONSE=$(curl -sS -w "\n%{http_code}" -X POST "${{ secrets.DEPLOY_URL }}?repo=$REPO&tag=latest")
+          BODY=$(echo "$RESPONSE" | sed "$d")
+          CODE=$(echo "$RESPONSE" | tail -n1)
+          echo "Webhook HTTP: $CODE"
+          if [ "$CODE" -lt 200 ] || [ "$CODE" -ge 300 ]; then
+            echo "Deploy thất bại. Xem chi tiết trong nhóm log bên dưới."
+            echo "::group::Chi tiết webhook JSON"
+            echo "$BODY" | python3 -m json.tool 2>/dev/null || echo "$BODY"
+            echo "::endgroup::"
+            exit 1
+          fi
+          echo "Deploy thành công."
+          echo "::group::Chi tiết webhook JSON"
+          echo "$BODY" | python3 -m json.tool 2>/dev/null || echo "$BODY"
+          echo "::endgroup::"
+
+
